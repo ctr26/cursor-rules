@@ -11,8 +11,8 @@ Read this first. Understand your role and context before acting.
 ## On Session Start
 
 1. **Identify your role**
-   - Which command was invoked? (`@git-manager`, `@sweep-manager`, etc.)
-   - Which agent was selected? (engineering, research, sweep-ops, etc.)
+   - Which command was invoked? (`@git/commit`, `@session/handover`, etc.)
+   - Which agent was selected? (engineering, git-ops, reviewer, etc.)
    - If neither, you're in general assistant mode
 
 2. **Read relevant rules**

@@ -55,10 +55,8 @@ Core principles:
 | **session/read-only** | Observer mode (no edits) |
 | **sync/remote** | Syncing cursor config to remote servers |
 | **sync/chezmoi** | Chezmoi dotfile sync management |
-| **ml/sweep** | Managing WandB sweeps on Slurm |
 | **config/agentic** | Audit/maintain repo-local .cursor/ config |
 | **config/review** | Review cursor config for inconsistencies and improvements |
-| **project/biohive** | BioHive project workflows |
 | **update** | General status check across everything |
 | **ideate** | Generate improvement ideas from codebase |
 | **note** | Persist notes for this repo (CLAUDE/notes/) |
@@ -118,12 +116,11 @@ See #ASK-QUESTION for enforcement details.
 │ ✓ Know which test/validator proves success (TDD-first) │
 │ ✓ Check .env for package preferences                   │
 │ ✓ Study existing code patterns                         │
-│ ✓ Verify what's running on Slurm before canceling      │
+│ ✓ Verify before destructive actions                    │
 ├─────────────────────────────────────────────────────────┤
 │              NEVER DO (see core.mdc for full list)     │
 ├─────────────────────────────────────────────────────────┤
 │ ✗ git push/commit without request                      │
-│ ✗ scancel -u $USER (kills everything)                  │
 │ ✗ rm (backup first) · try/catch (fail fast)            │
 ├─────────────────────────────────────────────────────────┤
 │                    ALWAYS DO                            │

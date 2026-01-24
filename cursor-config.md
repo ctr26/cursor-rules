@@ -33,6 +33,7 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `#DIR-SCRIPTS` | `dir-scripts.mdc` | Utility script patterns |
 | `#DIR-TESTS` | `dir-tests.mdc` | Test file patterns |
 | `#DIR-CURSOR` | `dir-cursor.mdc` | Cursor config patterns |
+| `#ML-HPC` | `ml-hpc.md` | ML/HPC patterns (reference doc) |
 
 ### Commands (@)
 
@@ -54,7 +55,6 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `@sync/chezmoi` | `sync/chezmoi.md` | Dotfile sync |
 | `@config/review` | `config/review.md` | Review cursor config |
 | `@setup/agentic` | `setup/agentic.md` | Agentic config setup |
-| `@project/biohive` | `project/biohive.md` | BioHive workflows |
 | `@update` | `update.md` | Status check |
 | `@audit` | `audit.md` | Committee review |
 | `@ideate` | `ideate.md` | Improvement ideas |
@@ -180,7 +180,6 @@ You are a [role]. [One-line purpose].
 | `session/handover` | Session handover with unique keys |
 | `session/continue` | Resume previous work |
 | `session/eod` | End of day summary |
-| `ml/sweep` | WandB sweeps on Slurm |
 | `sync/remote` | Sync config to remote servers |
 | `config/review` | Review cursor config |
 | `update` | Comprehensive status check |

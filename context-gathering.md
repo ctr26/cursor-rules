@@ -52,19 +52,7 @@ REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 ls -lt "$REPO_ROOT/.specstory/history/"*.md 2>/dev/null | head -5
 ```
 
----
-
-## WandB Environment (for ML projects)
-
-```bash
-WANDB_ENTITY=${WANDB_ENTITY:-$(grep -oP 'entity:\s*\K\S+' wandb/settings 2>/dev/null || echo "TBD")}
-WANDB_PROJECT=${WANDB_PROJECT:-$(grep -oP 'project:\s*\K\S+' wandb/settings 2>/dev/null || echo "TBD")}
-
-[ -f .env ] && source .env
-[ -f config.env ] && source config.env
-
-echo "WandB: $WANDB_ENTITY/$WANDB_PROJECT"
-```
+> **ML/HPC users:** See #ML-HPC for WandB environment gathering patterns.
 
 ---
 
@@ -103,7 +91,7 @@ Derive a sensible name for the agent based on context. Priority: Command > Branc
 ```bash
 # Derive agent name
 if [ -n "$CURSOR_COMMAND" ]; then
-  AGENT_NAME="${CURSOR_COMMAND#/}"  # e.g., "sweep-manager"
+  AGENT_NAME="${CURSOR_COMMAND#/}"  # e.g., "git-commit"
 elif git rev-parse --git-dir &>/dev/null; then
   BRANCH=$(git branch --show-current 2>/dev/null)
   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ] || [ "$BRANCH" = "master" ]; then
@@ -119,9 +107,9 @@ echo "Agent: $AGENT_NAME"
 
 | Context | Agent Name | Example |
 |---------|------------|---------|
-| Using a command | Command name (without `/`) | `sweep-manager`, `git-manager` |
+| Using a command | Command name (without `/`) | `git-manager`, `session-continue` |
 | Feature branch | Branch name | `feat/data-loader`, `fix/auth` |
-| Main/dev branch | Repo folder name | `biohive`, `cursor-config` |
+| Main/dev branch | Repo folder name | `my-project`, `cursor-config` |
 | No git | Folder name | `scripts`, `agent` |
 
 ---
@@ -132,5 +120,4 @@ echo "Agent: $AGENT_NAME"
 |--------------|----------------|
 | Git operations | Repo root, branch, status |
 | Planning/continue | Full context including CLAUDE.md |
-| Sweep/training | Add WandB environment |
 | Handover | Full context + specstory + agent name |
