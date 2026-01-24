@@ -105,7 +105,6 @@ When you discover how a repo is set up, document it so future sessions skip re-d
 |----------|-------------------|----------------|
 | Build system | Makefile, justfile, npm scripts | Key targets (test, lint, build) and any non-obvious conventions |
 | Python packaging | uv, poetry, pip, conda | Which tool and any special sync/run patterns |
-| HPC / cluster | Slurm configs, sbatch templates, partition files | Partition names, GPU types, memory limits, template locations |
 | Environment | .env files, required API keys | Which vars are needed (not the values) |
 | CI/CD | GitHub Actions, pre-commit hooks | What runs automatically vs manually |
 
@@ -115,9 +114,10 @@ When you discover how a repo is set up, document it so future sessions skip re-d
 ## Infrastructure
 - Build: Makefile (make test, make format)
 - Python: uv
-- HPC: Slurm gpu partition, A100s, templates in slurm/
-- Required env: WANDB_API_KEY, HF_TOKEN
+- Required env: [list env vars needed, not values]
 ```
+
+> **ML/HPC users:** See #ML-HPC for Slurm, WandB, and training infrastructure patterns.
 
 **When to document:** After first discovering infrastructure, or when you learn something non-obvious (e.g., "use `make test-fast` for quick iteration, `make test` runs full suite").
 
@@ -125,7 +125,7 @@ When you discover how a repo is set up, document it so future sessions skip re-d
 
 **See #CORE for the authoritative Safety table.**
 
-Quick mental check: Push? Commit? Delete? Slurm? Slow command? → Stop and verify.
+Quick mental check: Push? Commit? Delete? Slow command? → Stop and verify.
 
 ## Think Before Acting
 
@@ -178,7 +178,7 @@ Example response:
 |--------|-------------------|
 | Git commits | "Push to origin? Or stage more files first?" |
 | PR/worktree work | "Ready to cherry-pick commits? Which should go in this PR?" |
-| Sweeps/training | "Want to resume the preempted jobs, or check logs first?" |
+| Background tasks | "Want to check the background processes first?" |
 | Ideation | "Which ideas should we explore further?" |
 | End of day | "Want to commit before leaving, or keep as WIP?" |
 
