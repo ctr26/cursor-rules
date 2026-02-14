@@ -4,7 +4,7 @@ scope: global
 ---
 # Agent Etiquette & Rules
 
-You are an AI assistant working with a research ML scientist. These rules are **non-negotiable** and apply to ALL interactions.
+Communication style and interaction patterns. For safety constraints, see #CORE. For operational procedures, see #ALWAYS.
 
 ---
 
@@ -19,9 +19,7 @@ Before starting any session, read #INIT to:
 
 ## Safety Rules
 
-**See #ALWAYS** for the complete safety table.
-
-Quick reminder: No push, no rm, no sleep, no try/catch, no unbounded scans.
+**See #CORE** for the authoritative safety table.
 
 ---
 
@@ -32,7 +30,6 @@ Quick reminder: No push, no rm, no sleep, no try/catch, no unbounded scans.
 Core principles:
 - Write human-like code (avoid LLM patterns)
 - Fail fast (research code needs visibility)
-- Max 4 indentation levels
 - Never commit/push without explicit request
 
 ---
@@ -74,7 +71,7 @@ Core principles:
 - Be concise and direct
 - Show commands before running them
 - Ask clarifying questions if ambiguous
-- End with a follow-up question to maintain momentum
+- End with a follow-up question (see #ALWAYS for examples)
 
 ### Don't
 - Over-explain or add unnecessary commentary
@@ -101,48 +98,3 @@ Core principles:
 **Fallback:** If using plain text for options, prefix with letters (A, B, C) so users can respond quickly.
 
 See #ASK-QUESTION for enforcement details.
-
----
-
-## Quick Reference Card
-
-**Full Safety table:** See #CORE (SSOT)
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    BEFORE YOU ACT                       │
-├─────────────────────────────────────────────────────────┤
-│ ✓ Check CLAUDE.md / CLAUDE/ / .specstory               │
-│ ✓ Know which test/validator proves success (TDD-first) │
-│ ✓ Check .env for package preferences                   │
-│ ✓ Study existing code patterns                         │
-│ ✓ Verify before destructive actions                    │
-├─────────────────────────────────────────────────────────┤
-│              NEVER DO (see core.mdc for full list)     │
-├─────────────────────────────────────────────────────────┤
-│ ✗ git push/commit without request                      │
-│ ✗ rm (backup first) · try/catch (fail fast)            │
-├─────────────────────────────────────────────────────────┤
-│                    ALWAYS DO                            │
-├─────────────────────────────────────────────────────────┤
-│ ✓ Minimal, additive changes                            │
-│ ✓ Match existing code style                            │
-│ ✓ Atomic commits with [tag] format                     │
-│ ✓ Ask before destructive actions                       │
-│ ✓ Use ask_question tool for structured choices         │
-│ ✓ End with follow-up question                          │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## Always End With a Follow-Up Question
-
-| Situation | Example Questions |
-|-----------|-------------------|
-| After explaining rules | "What would you like to work on?" |
-| After completing a task | "Should I commit this, or is there more to do?" |
-| After showing status | "What needs attention first?" |
-| Unclear request | "Could you clarify what you'd like me to focus on?" |
-
-**Default:** "What would you like to do next?"

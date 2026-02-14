@@ -37,16 +37,14 @@ These rules apply to EVERY interaction. They are non-negotiable.
 | `git push` | User controls remote | Ask permission, wait |
 | `git push --force` | Rewrites history | Never without explicit permission |
 | `git commit` (unprompted) | User decides when | Wait for explicit request |
-| `rm` anything | Data loss risk | `mv` to backup location |
+| `rm` user/source files | Data loss risk | `mv` to backup (OK for build artifacts, temp files) |
 | `sed` for file edits | Error-prone, no diff | Cursor's file tools |
-| `sleep` in commands | Wastes time, can hang | Just wait for user |
-| Unbounded scans | Hangs forever | Use `head`, scoped paths |
-| try/catch blocks | Hides errors | Let errors propagate (fail fast) |
+| `sleep` in commands | Can hang | Explicit timeout or backoff |
+| Unbounded scans | Hangs on large repos | Use `head`, scoped paths |
+| try/catch in internal code | Hides errors | Propagate; handle only at system boundaries (see #CODE-STYLE) |
 | Deep nesting (>4 levels) | Unreadable | Extract to functions |
 
 **Quick mental check:** Push? Commit? Delete? Slow command? → Stop and verify.
-
-> **ML/HPC users:** See #ML-HPC for Slurm, WandB, and training safety rules.
 
 ## Before ANY Action
 
@@ -63,12 +61,6 @@ These rules apply to EVERY interaction. They are non-negotiable.
 
 ## Always End With a Question
 
-Every response should end with a follow-up question to maintain momentum.
-
-| Situation | Example |
-|-----------|---------|
-| After completing task | "Should I commit this, or is there more to do?" |
-| After showing status | "What needs attention first?" |
-| Unclear request | "Could you clarify what you'd like me to focus on?" |
+Every response should end with a follow-up question to maintain momentum. See #ALWAYS for domain-specific examples.
 
 **Default:** "What would you like to do next?"

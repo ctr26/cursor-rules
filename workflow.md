@@ -54,8 +54,6 @@ Patterns extracted from command files that apply across workflows.
 - Bug fix → write failing test first
 - Feature → describe acceptance tests first
 
-> **ML/HPC users:** See #ML-HPC for Slurm, WandB, training, and sweep patterns.
-
 ---
 
 ## Agent Handover Flow

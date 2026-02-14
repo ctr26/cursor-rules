@@ -32,8 +32,8 @@ git status --short
 
 # Recently modified files (last hour)
 echo -e "\n--- Recently Touched ---"
-find . -name "*.py" -o -name "*.md" -o -name "*.yaml" 2>/dev/null \
-  | xargs ls -lt 2>/dev/null | head -10
+find . \( -name "*.py" -o -name "*.md" -o -name "*.yaml" \) -mmin -60 -print0 2>/dev/null \
+  | xargs -0 ls -lt 2>/dev/null | head -10
 
 # Git diff summary
 echo -e "\n--- Changes Summary ---"

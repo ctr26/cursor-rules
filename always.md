@@ -4,7 +4,7 @@ scope: global
 ---
 # Always Rules
 
-These rules apply to EVERY interaction, regardless of context.
+Operational procedures and session management. For safety constraints and response style, see #CORE.
 
 ## First: Read Init
 
@@ -93,7 +93,7 @@ When writing or updating rules:
 
 **Why:** Plain English is readable across sessions, doesn't break when paths change, and lets the agent choose the right tool (Cursor file tools vs terminal).
 
-**Exception:** Code blocks are fine for *examples* of what to run, but instructions should be prose.
+**Exception:** Code blocks are fine for *examples* of what to run and in *dialogue templates* (which are scripts to execute, not instructions to follow). Rule *instructions* should be prose.
 
 ## Note Infrastructure in CLAUDE.md
 
@@ -117,15 +117,7 @@ When you discover how a repo is set up, document it so future sessions skip re-d
 - Required env: [list env vars needed, not values]
 ```
 
-> **ML/HPC users:** See #ML-HPC for Slurm, WandB, and training infrastructure patterns.
-
 **When to document:** After first discovering infrastructure, or when you learn something non-obvious (e.g., "use `make test-fast` for quick iteration, `make test` runs full suite").
-
-## Before ANY Action
-
-**See #CORE for the authoritative Safety table.**
-
-Quick mental check: Push? Commit? Delete? Slow command? → Stop and verify.
 
 ## Think Before Acting
 
@@ -136,12 +128,6 @@ For any non-trivial task, briefly state:
 
 Example:
 > "I'll cherry-pick commit abc123 to the feature branch. This adds the auth module. No conflicts expected since the file is new."
-
-## Response Style
-
-- Be concise and direct
-- Show commands before running
-- No excessive comments or over-explanation
 
 ## Report File Access Issues
 
@@ -299,10 +285,4 @@ Benefits:
 
 Use the worktree creation script to create with symlinked resources.
 
-## Code Style
-
-- Max 4 indentation levels (refactor if deeper)
-- No try/catch (fail fast for research code)
-- Match existing repo patterns
-- Prefer additive changes over modifications
 

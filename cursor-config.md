@@ -33,7 +33,6 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `#DIR-SCRIPTS` | `dir-scripts.mdc` | Utility script patterns |
 | `#DIR-TESTS` | `dir-tests.mdc` | Test file patterns |
 | `#DIR-CURSOR` | `dir-cursor.mdc` | Cursor config patterns |
-| `#ML-HPC` | `ml-hpc.md` | ML/HPC patterns (reference doc) |
 
 ### Commands (@)
 
@@ -198,7 +197,7 @@ Agents are specialized personas with model configuration. Uses `.mdc` extension 
 ```yaml
 ---
 name: 'Agent Name'
-model: claude-opus-4-20250514
+model: claude-opus-4-20250514  # update to latest version
 description: 'One-line purpose'
 ---
 ```
@@ -208,7 +207,7 @@ description: 'One-line purpose'
 |-----------|-------|-----------|
 | Complex/safety-critical | `claude-opus-4-*` | Best reasoning |
 | Standard coding | `claude-sonnet-4-*` | Good balance |
-| Simple tasks | `claude-haiku-*` | Fast/cheap |
+| Simple tasks | `claude-haiku-4-*` | Fast/cheap |
 
 ### Agent Structure
 

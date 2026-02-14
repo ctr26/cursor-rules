@@ -52,8 +52,6 @@ REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 ls -lt "$REPO_ROOT/.specstory/history/"*.md 2>/dev/null | head -5
 ```
 
-> **ML/HPC users:** See #ML-HPC for WandB environment gathering patterns.
-
 ---
 
 ## Full Context Gathering (Combined)
