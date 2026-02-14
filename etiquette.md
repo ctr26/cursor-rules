@@ -50,10 +50,10 @@ Core principles:
 | **session/summarize** | Generate copy-paste startup prompt |
 | **session/catch-up** | Read-only context ingestion |
 | **session/read-only** | Observer mode (no edits) |
-| **sync/remote** | Syncing cursor config to remote servers |
+| **sync/remote** | Syncing config to remote servers |
 | **sync/chezmoi** | Chezmoi dotfile sync management |
-| **config/agentic** | Audit/maintain repo-local .cursor/ config |
-| **config/review** | Review cursor config for inconsistencies and improvements |
+| **config/agentic** | Audit/maintain repo-local AI config |
+| **config/review** | Review AI config for inconsistencies and improvements |
 | **update** | General status check across everything |
 | **ideate** | Generate improvement ideas from codebase |
 | **note** | Persist notes for this repo (CLAUDE/notes/) |
@@ -83,9 +83,11 @@ Core principles:
 
 ## Asking Questions
 
-**Prefer the `ask_question` tool** for structured choices - it creates clickable buttons.
+**Prefer the structured question tool** for choices with discrete options.
 
-**Use `ask_question` for:**
+> Cursor: `ask_question` · Claude Code: `AskUserQuestion`
+
+**Use it for:**
 - Multiple-choice decisions (A/B/C options)
 - Yes/no confirmations
 - Configuration selections

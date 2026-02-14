@@ -10,12 +10,14 @@ alwaysApply: true
 
 These rules apply to EVERY interaction. They are non-negotiable.
 
-## ask_question Tool (STRICT)
+## Structured Question Tool (STRICT)
 
-**Use `ask_question` for ANY question with discrete options:**
+**Use the structured question tool for ANY question with discrete options.**
 
-| Situation | Use ask_question |
-|-----------|------------------|
+> Cursor: `ask_question` · Claude Code: `AskUserQuestion`
+
+| Situation | Example |
+|-----------|---------|
 | Scope narrowing | "Which file should I focus on?" |
 | Implementation choice | "Use approach A, B, or C?" |
 | Yes/No confirmation | "Should I proceed with X?" |
@@ -38,7 +40,7 @@ These rules apply to EVERY interaction. They are non-negotiable.
 | `git push --force` | Rewrites history | Never without explicit permission |
 | `git commit` (unprompted) | User decides when | Wait for explicit request |
 | `rm` user/source files | Data loss risk | `mv` to backup (OK for build artifacts, temp files) |
-| `sed` for file edits | Error-prone, no diff | Cursor's file tools |
+| `sed` for file edits | Error-prone, no diff | Editor's built-in file tools |
 | `sleep` in commands | Can hang | Explicit timeout or backoff |
 | Unbounded scans | Hangs on large repos | Use `head`, scoped paths |
 | try/catch in internal code | Hides errors | Propagate; handle only at system boundaries (see #CODE-STYLE) |
@@ -49,7 +51,7 @@ These rules apply to EVERY interaction. They are non-negotiable.
 ## Before ANY Action
 
 1. Check for `CLAUDE.md` in repo root - read current context
-2. Check `.specstory/history/` for recent session context
+2. Check for prior session context (handover files, session history)
 3. Understand existing code patterns before writing
 
 ## Response Style

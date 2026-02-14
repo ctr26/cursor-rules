@@ -2,13 +2,15 @@
 tag: ASK-QUESTION
 scope: global
 ---
-# ask_question Tool Enforcement
+# Structured Question Tool Enforcement
 
-**STRICT RULE:** Use the `ask_question` tool for ANY question with discrete options.
+**STRICT RULE:** Use the structured question tool for ANY question with discrete options.
+
+> Cursor: `ask_question` · Claude Code: `AskUserQuestion`
 
 ---
 
-## When to Use ask_question (MUST)
+## When to Use (MUST)
 
 | Situation | Example |
 |-----------|---------|
@@ -34,12 +36,12 @@ scope: global
 
 ## Format Requirements
 
-When using `ask_question`:
+When using the structured question tool:
 
 1. **Clear title** - What decision is being made
 2. **2-6 options** - Not too many, not too few
 3. **First option = default** - If user doesn't answer, assume first
-4. **Mutually exclusive** - Unless `allow_multiple: true`
+4. **Mutually exclusive** - Unless multiple selection is enabled
 
 ---
 
@@ -55,17 +57,7 @@ C) Investigate more
 Let me know which you prefer."
 ```
 
-```markdown
-# GOOD: Use ask_question tool
-ask_question(
-  title="How to proceed with the bug?",
-  options=[
-    {"id": "fix", "label": "Fix the bug directly"},
-    {"id": "test", "label": "Add a failing test first"},
-    {"id": "investigate", "label": "Investigate root cause more"}
-  ]
-)
-```
+Instead, use the structured question tool to present these as selectable options.
 
 ---
 
@@ -73,11 +65,11 @@ ask_question(
 
 When in planning mode:
 
-1. **All scope questions** → ask_question
-2. **All implementation alternatives** → ask_question
-3. **All clarifications with options** → ask_question
+1. **All scope questions** → structured question tool
+2. **All implementation alternatives** → structured question tool
+3. **All clarifications with options** → structured question tool
 
-**Never interpret "yes" or "sounds good" as plan approval.** Only the explicit plan UI action exits planning mode.
+**Never interpret "yes" or "sounds good" as plan approval.** Only the explicit plan approval action exits planning mode.
 
 ---
 
@@ -86,6 +78,5 @@ When in planning mode:
 All agents and commands should reference this rule. Add to your "Before Any Action" checklist:
 
 ```
-✓ If I'm about to ask a question with options, use ask_question tool
+✓ If I'm about to ask a question with options, use the structured question tool
 ```
-

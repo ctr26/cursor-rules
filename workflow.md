@@ -61,7 +61,7 @@ Patterns extracted from command files that apply across workflows.
 The standard workflow for task handoff between agents:
 
 ```
-Handover → New Agent → Plan Mode → ask_question → Plan UI Approval → Deploy
+Handover → New Agent → Plan Mode → Structured Questions → Plan Approval → Deploy
 ```
 
 ### Stages
@@ -69,20 +69,20 @@ Handover → New Agent → Plan Mode → ask_question → Plan UI Approval → D
 | Stage | Description |
 |-------|-------------|
 | **1. Handover** | Create HO-*.md with startup prompt, update CLAUDE.md index |
-| **2. New Agent** | User opens fresh chat, pastes startup prompt with handover key |
-| **3. Plan Mode** | Agent gathers context, produces plan via `create_plan` tool |
-| **4. Iterate** | Use `ask_question` for ALL decisions with discrete options |
-| **5. Approval** | Wait for explicit plan UI approval (NOT "yes" or "sounds good") |
+| **2. New Agent** | User opens fresh session, pastes startup prompt with handover key |
+| **3. Plan Mode** | Agent gathers context, produces a plan |
+| **4. Iterate** | Use structured question tool for ALL decisions with discrete options |
+| **5. Approval** | Wait for explicit plan approval (NOT "yes" or "sounds good") |
 | **6. Deploy** | Execute plan steps, report progress |
-| **7. Questions** | Use `ask_question` for any mid-execution decisions |
+| **7. Questions** | Use structured question tool for any mid-execution decisions |
 
 ### Key Invariants
 
 1. **Never interpret conversational affirmatives as plan approval**
    - "yes", "sounds good", "go ahead" → NOT plan approval
-   - Only the explicit plan UI action exits planning mode
+   - Only the explicit plan approval action exits planning mode
 
-2. **Always use ask_question for decisions**
+2. **Always use structured question tool for decisions**
    - See #ASK-QUESTION for enforcement table
 
 3. **Handover at natural boundaries**
@@ -97,7 +97,3 @@ Handover files older than 7 days should be archived:
 ```bash
 find CLAUDE -name "HO-*.md" -mtime +7 -exec mv {} CLAUDE/archive/ \;
 ```
-
-
-
-

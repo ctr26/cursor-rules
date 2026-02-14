@@ -15,37 +15,21 @@ Before starting any session, read #INIT to understand:
 
 ## Check for Handover Context
 
-At session start, check for existing handover documents:
-
-```bash
-REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-ls "$REPO_ROOT/CLAUDE.md" "$REPO_ROOT/CLAUDE/" 2>/dev/null
-```
+At session start, check for existing handover documents in the repo root:
+- `CLAUDE.md` — session index, handover pointer, quick reference
+- `CLAUDE/` folder — detailed handover files (e.g., `CLAUDE/HO-*.md`)
+- `CLAUDE_SESSION.md` — extended session state (complex projects)
 
 If found:
 - Read `CLAUDE.md` for current handover key and session focus
-- Check `CLAUDE/` folder for detailed handover files (e.g., `CLAUDE/HO-*.md`)
 - Resume from where the last session left off
 - Verify the handover key matches if one was provided
 
-**Important:** Only use the **repo-local** `CLAUDE.md` (in `$REPO_ROOT/`). Never read or write `~/.cursor/CLAUDE.md` - that file is for cursor-config maintenance only.
-
-### Context File Types
-
-| File | Purpose | When to Use |
-|------|---------|-------------|
-| `CLAUDE.md` | Session index, handover pointer, quick reference | Default - most repos |
-| `CLAUDE_SESSION.md` | Extended session state for game dev | Games with complex state |
-| `CLAUDE/` folder | Detailed handover files, notes, todos | Long-running features |
+**Important:** Only use the **repo-local** `CLAUDE.md` (in the repo root). Don't mix it with global config files.
 
 ## Discover Repo Tooling
 
 Before running commands, check how this repo does things:
-
-```bash
-REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-ls "$REPO_ROOT/Makefile" "$REPO_ROOT/justfile" "$REPO_ROOT/scripts/" "$REPO_ROOT/pyproject.toml" 2>/dev/null
-```
 
 | If you find | Then use | Not |
 |-------------|----------|-----|
@@ -69,17 +53,15 @@ uv run pytest    # run in venv
 uv add <pkg>     # add dependency
 ```
 
-## Centralized Config via Host Machine
+## Remote Development
 
-The host machine's `~/.cursor/` is the single source of truth for rules, commands, and agents. When working on remote machines via SSH tunnel or Cursor Remote, use Cursor's file tools to access host config directly - no syncing required.
+When working on remote machines, prefer the editor's built-in file tools over terminal commands for reading config and rules. Terminal commands (`cat`, `ls`) only see the remote filesystem.
 
 | Do | Why |
 |----|-----|
-| Use `read_file` / `list_dir` for `~/.cursor/*` | Cursor tools access host through tunnel |
-| Read rules/commands from host, not remote | One source of truth, no sync needed |
-| Inform user if host config is inaccessible | They may need to check tunnel setup |
-
-**Terminal commands** (`cat`, `ls`) only see the remote filesystem - use them for remote files, not for accessing your centralized config.
+| Use built-in file read/search tools | They may access host config through the tunnel |
+| Read rules from host config, not remote | One source of truth, no sync needed |
+| Inform user if config is inaccessible | They may need to check tunnel or sync setup |
 
 ## Rule Writing Style
 
@@ -91,7 +73,7 @@ When writing or updating rules:
 | "Find the repo root using git" | `git rev-parse --show-toplevel` as instructions |
 | "Look for Makefile, justfile, or scripts/" | Complex `ls ... 2>/dev/null` chains |
 
-**Why:** Plain English is readable across sessions, doesn't break when paths change, and lets the agent choose the right tool (Cursor file tools vs terminal).
+**Why:** Plain English is readable across sessions, doesn't break when paths change, and lets the agent choose the right tool (built-in file tools vs terminal).
 
 **Exception:** Code blocks are fine for *examples* of what to run and in *dialogue templates* (which are scripts to execute, not instructions to follow). Rule *instructions* should be prose.
 
@@ -135,9 +117,9 @@ Example:
 
 | Issue | Action |
 |-------|--------|
-| Permission denied | Report the file and suggest symlink command |
+| Permission denied | Report the file and suggest fix |
 | File not found | Confirm path, ask if user meant something else |
-| Ignored by `.cursorignore` | Explain why and offer workaround |
+| Ignored by ignore file | Explain why and offer workaround |
 | Binary/unreadable | State it clearly, don't pretend you read it |
 
 Example response:
@@ -174,7 +156,7 @@ Commands may include 1-2 additional domain-specific examples, but should not dup
 
 ## Rule Discovery
 
-When reading CLAUDE.md or .specstory history, watch for repeated patterns:
+When reading CLAUDE.md or session history, watch for repeated patterns:
 - Preferences stated multiple times
 - Corrections given more than once
 - Workflow patterns that recur
@@ -192,9 +174,7 @@ When you make a mistake or receive a correction, **document it** so future sessi
 | Command fails unexpectedly | Document the fix in CLAUDE/ folder |
 | You misunderstand a repo pattern | Update CLAUDE.md with the correct pattern |
 | Repeated correction (2+ times) | Propose adding as a new rule |
-| Pattern found in .specstory history | Propose rule or add to CLAUDE.md |
-
-**Proactively mine history:** When starting a session, scan `.specstory/history/` and `.cursor/plans/` for recurring corrections, decisions, or preferences and propose rules.
+| Pattern found in session history | Propose rule or add to CLAUDE.md |
 
 **Format for CLAUDE.md:**
 ```
@@ -249,28 +229,28 @@ When a chat grows too long, suggest handover to preserve context quality.
 
 | Signal | Action |
 |--------|--------|
-| 15+ message exchanges | Suggest: "This chat is getting long - want me to `/handover`?" |
+| 15+ message exchanges | Suggest: "This chat is getting long - want me to create a handover?" |
 | Major task boundary | Suggest handover before starting a new unrelated task |
 | Context confusion | If you lose track of earlier decisions, handover immediately |
 | Complex multi-step done | Proactively offer handover to capture state |
 
 ### Planning Mode Handover
 
-When in planning mode (plan not yet executed), guide the user to spawn a fresh agent:
+When in planning mode (plan not yet executed), guide the user to spawn a fresh session:
 
-1. Create the handover document via `/handover`
+1. Create the handover document
 2. Provide the startup prompt with the handover key
-3. Suggest: "Open a new Cursor tab and paste the startup prompt to continue with a fresh agent"
+3. Suggest: "Open a new session and paste the startup prompt to continue with fresh context"
 
-This ensures the next agent starts clean with full context from the handover file.
+This ensures the next session starts clean with full context from the handover file.
 
 ### Example
 
 > "We've covered a lot of ground here (20+ messages). I recommend:
 > 1. I'll create a handover now
-> 2. Open a new Cursor tab  
+> 2. Open a new session
 > 3. Paste the startup prompt I provide
-> 
+>
 > This gives the next agent fresh context. Continue here or handover?"
 
 ## Worktrees for Large Changes
@@ -284,5 +264,3 @@ Benefits:
 - Parallel work on multiple features
 
 Use the worktree creation script to create with symlinked resources.
-
-

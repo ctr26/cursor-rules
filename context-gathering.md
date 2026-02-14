@@ -47,9 +47,6 @@ REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 [ -f "$REPO_ROOT/CLAUDE.md" ] && echo "Found: CLAUDE.md"
 [ -d "$REPO_ROOT/CLAUDE" ] && echo "Found: CLAUDE/ folder"
 [ -f "$REPO_ROOT/CLAUDE_SESSION.md" ] && echo "Found: CLAUDE_SESSION.md"
-
-# SpecStory trail
-ls -lt "$REPO_ROOT/.specstory/history/"*.md 2>/dev/null | head -5
 ```
 
 ---
@@ -76,8 +73,7 @@ git status --short
 git log --oneline -5
 
 # Planning files
-ls CLAUDE.md CLAUDE_SESSION.md CLAUDE/ .cursor/feature.md PR.md 2>/dev/null
-ls -lt .specstory/history/*.md 2>/dev/null | head -5
+ls CLAUDE.md CLAUDE_SESSION.md CLAUDE/ PR.md 2>/dev/null
 ```
 
 ---
@@ -88,9 +84,7 @@ Derive a sensible name for the agent based on context. Priority: Command > Branc
 
 ```bash
 # Derive agent name
-if [ -n "$CURSOR_COMMAND" ]; then
-  AGENT_NAME="${CURSOR_COMMAND#/}"  # e.g., "git-commit"
-elif git rev-parse --git-dir &>/dev/null; then
+if git rev-parse --git-dir &>/dev/null; then
   BRANCH=$(git branch --show-current 2>/dev/null)
   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ] || [ "$BRANCH" = "master" ]; then
     AGENT_NAME=$(basename "$(git rev-parse --show-toplevel)")
@@ -105,9 +99,8 @@ echo "Agent: $AGENT_NAME"
 
 | Context | Agent Name | Example |
 |---------|------------|---------|
-| Using a command | Command name (without `/`) | `git-manager`, `session-continue` |
 | Feature branch | Branch name | `feat/data-loader`, `fix/auth` |
-| Main/dev branch | Repo folder name | `my-project`, `cursor-config` |
+| Main/dev branch | Repo folder name | `my-project`, `ai-config` |
 | No git | Folder name | `scripts`, `agent` |
 
 ---
@@ -118,4 +111,4 @@ echo "Agent: $AGENT_NAME"
 |--------------|----------------|
 | Git operations | Repo root, branch, status |
 | Planning/continue | Full context including CLAUDE.md |
-| Handover | Full context + specstory + agent name |
+| Handover | Full context + session history + agent name |

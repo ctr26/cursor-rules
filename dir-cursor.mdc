@@ -1,23 +1,27 @@
 ---
-name: 'Cursor Config'
+name: 'AI Config'
 tag: DIR-CURSOR
 scope: global
-description: 'Cursor command and rule authoring'
-globs: ["**/.cursor/**/*", "**/cursor/**/*"]
+description: 'AI assistant config and rule authoring'
+globs: ["**/.cursor/**/*", "**/cursor/**/*", "**/CLAUDE.md"]
 alwaysApply: false
 ---
 
-# Cursor Configuration Authoring
+# AI Configuration Authoring
 
-Rules for editing Cursor config files. Inherits from `always.md` and `etiquette.md`.
+Rules for editing AI assistant config files (Cursor `.cursor/` or Claude Code `CLAUDE.md`). Inherits from `always.md` and `etiquette.md`.
 
-## File Types
+## File Types (Cursor)
 
 | Folder | Extension | Purpose |
 |--------|-----------|---------|
 | `rules/` | `.mdc` (auto-loaded), `.md` (reference) | Behavior rules |
 | `commands/` | `.md` | User-triggered workflows |
 | `agents/` | `.mdc` | Agent personas |
+
+## Claude Code
+
+All configuration goes in `CLAUDE.md` at the repo root. Claude Code reads this automatically.
 
 ## Rule Format (.mdc with globs)
 

@@ -21,13 +21,13 @@ When to suggest related commands. Proactively recommend switching to a specializ
 | **session/continue** | Planning mode context recovery | Starting new session, need context |
 | **session/agentic** | Autonomous execution with context | Ready to execute after planning |
 | **session/eod** | Wrap up, handover, overnight job check | End of work session |
-| **sync/remote** | Syncing cursor config to remote servers | User mentions remote setup or SSH |
-| **setup/agentic** | Audit/maintain repo-local .cursor/ config | Setting up agentic config in a repo |
+| **sync/remote** | Syncing config to remote servers | User mentions remote setup or SSH |
+| **setup/agentic** | Audit/maintain repo-local AI config | Setting up agentic config in a repo |
 | **update** | Status check across everything | User asks "what's running?" or wants overview |
 | **ideate** | Generate improvement ideas | User asks "what's next?" or wants roadmap |
 | **note** | Persist notes for repo (CLAUDE/notes/) | User wants to save context for later |
 | **todo** | Manage todos for this repo | Task tracking and prioritization |
-| **audit** | Committee review of cursor config | User wants multi-agent review of rules/commands/agents |
+| **audit** | Committee review of AI config | User wants multi-agent review of rules/commands/agents |
 
 ---
 

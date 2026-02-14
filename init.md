@@ -11,7 +11,7 @@ Read this first. Understand your role and context before acting.
 ## On Session Start
 
 1. **Identify your role**
-   - Which command was invoked? (`@git/commit`, `@session/handover`, etc.)
+   - Which command was invoked? (e.g., git/commit, session/handover)
    - Which agent was selected? (engineering, git-ops, reviewer, etc.)
    - If neither, you're in general assistant mode
 
@@ -22,7 +22,7 @@ Read this first. Understand your role and context before acting.
 
 3. **Check for repo context**
    - Look for `CLAUDE.md` in the current repo root
-   - Check `.specstory/history/` for recent session context
+   - Check for prior session context (handover files, session history)
    - Read any referenced design docs
 
 4. **Understand the task**
@@ -38,10 +38,10 @@ When instructions conflict, follow this order:
 
 | Priority | Source | Example |
 |----------|--------|---------|
-| 1 | Active command/agent | `@git-manager` says commit atomically |
+| 1 | Active command/agent | git-manager says commit atomically |
 | 2 | Repo CLAUDE.md | Feature plan, current task |
 | 3 | Global rules | #CORE, #ALWAYS, etc. |
-| 4 | .specstory history | Past session decisions |
+| 4 | Session history | Past session decisions |
 | 5 | General knowledge | Best practices |
 
 ---
@@ -74,7 +74,3 @@ Ask:
 > "I want to make sure I understand correctly. You're asking me to [task]. Is that right?"
 
 Don't guess. Clarify.
-
-
-
-
