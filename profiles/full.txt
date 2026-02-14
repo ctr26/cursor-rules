@@ -1,0 +1,22 @@
+# Full bundle — all rules, references, and directory-specific patterns
+core.mdc
+init.md
+always.md
+etiquette.md
+code-style.md
+workflow.md
+ask-question.md
+context-gathering.md
+command-discovery.md
+cursor-config.md
+git-worktree.md
+dir-src.mdc
+dir-experiments.mdc
+dir-notebooks.mdc
+dir-scripts.mdc
+dir-tests.mdc
+dir-cursor.mdc
+dialogue/catch-up.md
+dialogue/morning-standup.md
+dialogue/micro-handover.md
+dialogue/worktree-handover.md
