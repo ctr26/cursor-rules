@@ -1,0 +1,6 @@
+# Compact rules for Claude iOS — behavioral core only, no tool-specific features
+core.mdc
+always.md
+etiquette.md
+code-style.md
+workflow.md

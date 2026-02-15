@@ -132,7 +132,7 @@ When features depend on each other:
 | Single worktree | "Only main repo - no worktrees" |
 | No CLAUDE.md in target | "No context in target - create one?" |
 | Uncommitted in current | "Handle uncommitted changes first?" |
-| Can't read other worktree | "Cannot access [path] - open in Cursor or symlink" |
+| Can't read other worktree | "Cannot access [path] - open in editor or symlink" |
 
 ---
 

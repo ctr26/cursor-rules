@@ -80,8 +80,6 @@ df -h / 2>/dev/null | tail -1
 - Background: 2 processes running
 ```
 
-> **ML/HPC users:** See #ML-HPC for overnight job analysis patterns.
-
 ---
 
 ## Priority Sources

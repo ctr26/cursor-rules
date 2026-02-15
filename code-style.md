@@ -86,7 +86,7 @@ def api_endpoint(request):
 
 Format: `[tag] lowercase description under 72 chars`
 
-Tags: `[feat]`, `[fix]`, `[ref]`, `[docs]`, `[test]`, `[init]`, `[cfg]`, `[bug]`
+Tags: `[feat]`, `[fix]`, `[ref]`, `[docs]`, `[test]`, `[init]`, `[cfg]`
 
 ### Atomic Commits
 - **Many small commits** over few large ones (verbose = quantity, not message length)

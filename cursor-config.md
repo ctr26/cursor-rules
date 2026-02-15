@@ -2,9 +2,25 @@
 tag: CURSOR-CONFIG
 scope: global
 ---
-# Cursor Configuration Reference
+# AI Assistant Configuration Reference
 
-How rules, commands, and agents are organized. Use tags for cross-references.
+How rules, commands, and agents are organized across Cursor and Claude Code. Use tags for cross-references.
+
+---
+
+## Platform Comparison
+
+| Concept | Cursor | Claude Code |
+|---------|--------|-------------|
+| Project context | `CLAUDE.md` | `CLAUDE.md` |
+| Global config dir | `~/.cursor/` | `~/.claude/` |
+| Auto-loaded rules | `.mdc` with frontmatter | `CLAUDE.md` (repo root + parents) |
+| Structured questions | `ask_question` | `AskUserQuestion` |
+| File operations | `read_file`, `list_dir` | `Read`, `Glob`, `Grep` |
+| Ignore file | `.cursorignore` | `.claudeignore` |
+| Commands | `@command` / `/command` | `/slash-commands`, hooks |
+| Agents | `agents/*.mdc` | Subagents via Task tool |
+| Conditional rules | `.mdc` with `globs` | Not applicable (use CLAUDE.md) |
 
 ---
 
@@ -16,13 +32,13 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 
 | Tag | File | Description |
 |-----|------|-------------|
-| `#CORE` | `core.mdc` | Always-applied safety, ask_question, style |
+| `#CORE` | `core.mdc` | Always-applied safety, structured questions, style |
 | `#INIT` | `init.md` | Session initialization |
-| `#ALWAYS` | `always.md` | Extended safety documentation |
-| `#ETIQUETTE` | `etiquette.md` | Agent behavior guide |
+| `#ALWAYS` | `always.md` | Operational procedures |
+| `#ETIQUETTE` | `etiquette.md` | Communication patterns |
 | `#WORKFLOW` | `workflow.md` | Git and handover patterns |
 | `#CODE-STYLE` | `code-style.md` | Formatting rules |
-| `#ASK-QUESTION` | `ask-question.md` | ask_question tool enforcement |
+| `#ASK-QUESTION` | `ask-question.md` | Structured question tool enforcement |
 | `#CURSOR-CONFIG` | `cursor-config.md` | This file - config structure reference |
 | `#CONTEXT` | `context-gathering.md` | Environment detection |
 | `#DISCOVERY` | `command-discovery.md` | Command suggestions |
@@ -32,8 +48,7 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `#DIR-NOTEBOOKS` | `dir-notebooks.mdc` | Jupyter notebook patterns |
 | `#DIR-SCRIPTS` | `dir-scripts.mdc` | Utility script patterns |
 | `#DIR-TESTS` | `dir-tests.mdc` | Test file patterns |
-| `#DIR-CURSOR` | `dir-cursor.mdc` | Cursor config patterns |
-| `#ML-HPC` | `ml-hpc.md` | ML/HPC patterns (reference doc) |
+| `#DIR-CURSOR` | `dir-cursor.mdc` | AI config authoring patterns |
 
 ### Commands (@)
 
@@ -53,7 +68,7 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `@session/read-only` | `session/read-only.md` | Observer mode |
 | `@sync/remote` | `sync/remote.md` | Remote sync |
 | `@sync/chezmoi` | `sync/chezmoi.md` | Dotfile sync |
-| `@config/review` | `config/review.md` | Review cursor config |
+| `@config/review` | `config/review.md` | Review AI config |
 | `@setup/agentic` | `setup/agentic.md` | Agentic config setup |
 | `@update` | `update.md` | Status check |
 | `@audit` | `audit.md` | Committee review |
@@ -65,7 +80,7 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 
 ---
 
-## Directory Structure
+## Cursor Directory Structure
 
 ```
 .cursor/
@@ -81,11 +96,21 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 | `commands/` | `.md` | User invokes (`/command`) | Task-specific workflows |
 | `agents/` | `.mdc` | User selects | Specialized personas with model config |
 
+## Claude Code Configuration
+
+Claude Code reads `CLAUDE.md` files from the repo root (and parent directories) automatically. To use these rules with Claude Code:
+
+1. **Copy behavioral content** from rule files into your repo's `CLAUDE.md`
+2. **Reference this repo** as a source of patterns and conventions
+3. **Use hooks** (in `~/.claude/settings.json`) for automated checks
+
+Claude Code has no equivalent of `.mdc` conditional rules — put all context in `CLAUDE.md`.
+
 ---
 
-## Rules (`rules/*.mdc`)
+## Rules (Cursor: `rules/*.mdc`)
 
-**Critical:** Only `.mdc` files with YAML frontmatter are auto-loaded by Cursor.
+**Cursor-specific:** Only `.mdc` files with YAML frontmatter are auto-loaded by Cursor.
 
 ### Rule Types
 
@@ -93,7 +118,7 @@ Cross-reference rules with `#TAG` and commands with `@path`.
 |------|-----------|-------------|--------------|
 | Always-on | `.mdc` | `alwaysApply: true` | Every interaction |
 | Conditional | `.mdc` | `globs: [...]` | When file pattern matches |
-| Reference | `.md` | None | Never auto-loaded (documentation only) |
+| Reference | `.md` | `tag`/`scope` only | Never auto-loaded (documentation only) |
 
 ### Frontmatter Format
 
@@ -115,7 +140,7 @@ alwaysApply: true  # OR use globs for conditional
 
 | File | alwaysApply | Purpose |
 |------|-------------|---------|
-| `core.mdc` | true | Safety, ask_question enforcement, style |
+| `core.mdc` | true | Safety, structured question enforcement, style |
 | `dir-src.mdc` | false (globs) | Production code patterns |
 | `dir-experiments.mdc` | false (globs) | ML experiment patterns |
 | `dir-notebooks.mdc` | false (globs) | Jupyter notebook patterns |
@@ -126,16 +151,18 @@ alwaysApply: true  # OR use globs for conditional
 
 | File | Purpose |
 |------|---------|
-| `always.md` | Extended safety documentation |
-| `etiquette.md` | Comprehensive agent behavior guide |
+| `always.md` | Operational procedures |
+| `etiquette.md` | Communication patterns |
 | `workflow.md` | Git and handover patterns |
-| `ask-question.md` | ask_question tool reference |
+| `ask-question.md` | Structured question tool reference |
 
 ---
 
 ## Commands (`commands/*.md`)
 
-Commands are user-triggered workflows. Invoke with `@command-name`.
+Commands are user-triggered workflows.
+
+> Cursor: invoke with `@command-name` · Claude Code: use `/slash-commands` or describe the workflow
 
 ### Naming Convention
 - Lowercase with hyphens: `commit.md`, `sweep.md`
@@ -181,7 +208,7 @@ You are a [role]. [One-line purpose].
 | `session/continue` | Resume previous work |
 | `session/eod` | End of day summary |
 | `sync/remote` | Sync config to remote servers |
-| `config/review` | Review cursor config |
+| `config/review` | Review AI config |
 | `update` | Comprehensive status check |
 | `ideate` | Brainstorming/planning mode |
 | `note` | Persist notes to CLAUDE/ |
@@ -189,16 +216,16 @@ You are a [role]. [One-line purpose].
 
 ---
 
-## Agents (`agents/*.mdc`)
+## Agents (Cursor: `agents/*.mdc`)
 
-Agents are specialized personas with model configuration. Uses `.mdc` extension (markdown with frontmatter).
+Agents are specialized personas with model configuration. Cursor uses `.mdc` extension (markdown with frontmatter). Claude Code uses subagents via the Task tool.
 
-### Frontmatter Format
+### Frontmatter Format (Cursor)
 
 ```yaml
 ---
 name: 'Agent Name'
-model: claude-opus-4-20250514
+model: claude-opus-4-20250514  # update to latest version
 description: 'One-line purpose'
 ---
 ```
@@ -208,7 +235,7 @@ description: 'One-line purpose'
 |-----------|-------|-----------|
 | Complex/safety-critical | `claude-opus-4-*` | Best reasoning |
 | Standard coding | `claude-sonnet-4-*` | Good balance |
-| Simple tasks | `claude-haiku-*` | Fast/cheap |
+| Simple tasks | `claude-haiku-4-*` | Fast/cheap |
 
 ### Agent Structure
 
@@ -297,18 +324,23 @@ timeout 10 some_command
 
 ## Creating New Configurations
 
-### New Rule (Auto-Loaded)
-1. Create `rules/my-rule.mdc` (note: `.mdc` extension required)
+### New Rule (Cursor Auto-Loaded)
+1. Create `rules/my-rule.mdc` (note: `.mdc` extension required for Cursor)
 2. Add YAML frontmatter with `name`, `description`, and either:
    - `alwaysApply: true` for always-on rules
    - `globs: ["pattern"]` for conditional rules
 3. Add "Never Do" and "Always Do" sections
 4. Include verification checklists if applicable
 
+### New Rule (Claude Code)
+1. Add the rule content to `CLAUDE.md` in the repo root
+2. Use markdown headers to organize sections
+3. Claude Code reads this file automatically on every session
+
 ### New Reference Doc (Not Auto-Loaded)
 1. Create `rules/my-reference.md` (plain `.md`)
-2. No frontmatter needed
-3. Reference from `.mdc` files as needed
+2. May use `tag`/`scope` frontmatter for organization
+3. Reference from `.mdc` files or `CLAUDE.md` as needed
 
 ### New Command
 1. Create `commands/category/my-command.md` (use folder hierarchy)
@@ -316,7 +348,7 @@ timeout 10 some_command
 3. Add "Related Commands" cross-references
 4. No frontmatter needed
 
-### New Agent
+### New Agent (Cursor)
 1. Create `agents/my-agent.mdc`
 2. Add YAML frontmatter with `name`, `model`, `description`
 3. Define domain-specific behavior
@@ -326,12 +358,12 @@ timeout 10 some_command
 
 ## File Conventions
 
-- **Rules: `.mdc` for auto-load** - plain `.md` files are reference only
+- **Cursor rules: `.mdc` for auto-load** - plain `.md` files are reference only
+- **Claude Code: `CLAUDE.md`** - single file, auto-loaded
 - **Lowercase with hyphens** - `git/commit.md` not `GitCommit.md`
 - **Hierarchical folders** - `commands/git/`, `commands/ml/`, etc.
 - **Self-documenting names** - purpose clear from filename
 - **Cross-reference** - link to related commands/rules
-- **AGENT-GENERATED header** - for files agents create in repos
 
 ---
 
@@ -342,10 +374,6 @@ timeout 10 some_command
 All rules/commands/agents must respect the Safety section in #CORE. Key points:
 
 - Never `git push/commit` without explicit request
-- Never `rm` (backup first) or `scancel -u $USER`
-- No try/catch (fail fast), max 4 indent levels
+- Never `rm` user/source files (backup first)
+- Handle try/catch only at system boundaries, max 4 indent levels
 - End with follow-up question, check CLAUDE.md first
-
-
-
-

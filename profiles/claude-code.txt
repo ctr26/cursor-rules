@@ -1,0 +1,9 @@
+# Rules formatted for Claude Code CLAUDE.md — drop into any repo root
+core.mdc
+init.md
+always.md
+etiquette.md
+code-style.md
+workflow.md
+ask-question.md
+git-worktree.md
