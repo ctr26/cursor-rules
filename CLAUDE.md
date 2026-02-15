@@ -46,7 +46,7 @@
 ### Documentation
 
 - [ ] Add a README.md with project overview, usage instructions, and profile descriptions
-- [ ] Add a CONTRIBUTING.md with guidelines for adding new rules, commands, and profiles
+- [ ] Add a CONTRIBUTING.md covering: rule file format (YAML frontmatter fields), `.mdc` vs `.md` extension choice, tag naming conventions, profile creation, and how to test bundles
 - [ ] Add a changelog or release notes workflow for tracking rule changes
 
 ### Build & CI
@@ -57,7 +57,7 @@
 
 ### Content
 
-- [ ] Review `cursor-config.md` — it references commands/agents (`@git/commit`, `agents/engineering.mdc`, etc.) that live in the destination `.cursor/` folder, not in this repo; clarify this distinction
+- [ ] Update `cursor-config.md` to clearly separate "rules bundled in this repo" from "commands/agents that live in the destination `.cursor/` folder" (e.g., `@git/commit`, `agents/engineering.mdc`), so users know which parts ship here vs. which are set up per-project
 - [ ] Add a profile for Claude Code that omits Cursor-specific instructions (current `claude-code` profile still includes Cursor references like `ask_question`)
 - [ ] Consider adding a minimal/starter profile for onboarding new projects
 
